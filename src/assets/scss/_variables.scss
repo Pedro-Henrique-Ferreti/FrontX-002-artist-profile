@@ -5,6 +5,7 @@ $gray-1: #9CA3AF;
 $gray-2: #F3F4F6;
 $gray-3: #6B7280;
 $yellow-1: #F2B705;
+$purple-1: #2D1F2F;
 
 
 $primary: $yellow-1;
@@ -18,3 +19,9 @@ $font-regular: 400;
 $font-medium: 500;
 $font-semibold: 600;
 $font-bold: 700;
+
+// Media queries
+$tablet-portrait-up: 600px;
+$large-tablet-portrait-up: 768px;
+$tablet-landscape-up: 900px;
+$desktop-up: 1200px;
