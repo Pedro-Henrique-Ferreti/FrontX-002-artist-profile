@@ -1,0 +1,29 @@
+* {
+  font-family: 'Assistant', sans-serif;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  font-weight: $font-regular;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: $text;
+  line-height: 1.4;
+}
+
+body, div, form, header, section, footer, ul, ol, li, 
+main, hr, figure, picture, nav, article, aside, p, label, button,
+h1, h2, h3, h4, h5, h6 {
+  display: flex;
+}
+
+body, #app {
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+}
