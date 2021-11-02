@@ -1,12 +1,19 @@
 <template>
-  <div class="background">
-    <h1>Front X</h1>    
-  </div>
+  <BaseContainer class="background-picture" :padding="false">
+    <div class="overlay">
+      <Home />
+    </div>
+  </BaseContainer>
 </template>
 
 <script>
+import Home from '@/views/Home.vue';
+
 export default {
   name: 'App',
+  components: {
+    Home,
+  },
 };
 </script>
 
@@ -19,7 +26,10 @@ body {
   background-size: cover;
   background-color: $purple-1;
 }
-#app {
+.background-picture {
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
   background-image: url('/images/ariana-grande-picture.png');
   background-repeat: no-repeat;
   background-size: clamp(400px, 65vh, 600px);
@@ -35,7 +45,10 @@ body {
 </style>
 
 <style lang="scss" scoped>
-.background {
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   min-height: 100vh;
   flex-direction: column;
