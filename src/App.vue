@@ -32,7 +32,7 @@ body {
   flex-direction: column;
   background-image: url('/images/ariana-grande-picture.png');
   background-repeat: no-repeat;
-  background-size: clamp(400px, 65vh, 600px);
+  background-size: clamp(400px, 57vh, 600px);
   background-position-x: center;
   background-position-y: bottom;
   @media (min-width: $tablet-landscape-up) {
