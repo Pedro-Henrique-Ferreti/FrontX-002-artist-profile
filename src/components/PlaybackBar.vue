@@ -1,13 +1,13 @@
 <template>
   <div class="playback-bar">
     <PlaybackBarButton @click="handlePlayClick">
-      <component :is="track.isPlaying ? 'IconPause' : 'IconPlay'" />
+      <component :is="song.isPlaying ? 'IconPause' : 'IconPlay'" />
     </PlaybackBarButton>
     <div>
-      <PlaybackBarButton>
+      <PlaybackBarButton @click="previousSong">
         <IconPrevious />
       </PlaybackBarButton>
-      <PlaybackBarButton>
+      <PlaybackBarButton @click="nextSong">
         <IconNext />
       </PlaybackBarButton>
     </div>
@@ -21,6 +21,8 @@ import IconPause from '@/assets/images/icons/Pause.vue';
 import IconPrevious from '@/assets/images/icons/Previous.vue';
 import IconNext from '@/assets/images/icons/Next.vue';
 
+import { Howl, Howler } from 'howler';
+
 export default {
   name: 'PlaybackBar',
   components: {
@@ -32,28 +34,71 @@ export default {
   },
   data() {
     return {
-      track: {
+      song: {
+        list: [
+          '/audio/Santa_s-Sleigh.mp3',
+          '/audio/Holiday-Lights.mp3',
+          '/audio/Operation-Puffle-Stand-and-Defend.mp3',
+          '/audio/Pizza-Parlor-Theme-2012.mp3',
+          '/audio/Rain-On-Me.mp3',
+        ],
+        index: 0,
         isPlaying: false,
-        song: new Audio('/audio/Pizza-Parlor-Theme-2012.mp3'),
+        duration: 0,
+        howl: null,
       },
     };
   },
+  mounted() {
+    // this.startSong();
+  },
   methods: {
+    startSong() {
+      if (this.song.howl) this.song.howl.stop();
+
+      this.song.howl = new Howl({
+        src: [this.song.list[this.song.index]],
+        onend: this.nextSong,
+        onload: () => {
+          this.song.howl.play();
+          this.song.duration = this.song.howl._duration;
+          this.song.isPlaying = true;
+
+          Howler.volume(0.2);          
+        }
+      });
+    },
     handlePlayClick() {
-      this.track.isPlaying
-        ? this.pauseTrack()
-        : this.playTrack();
+      this.song.isPlaying
+        ? this.pauseSong()
+        : this.playSong();
     },
-    playTrack() {
-      this.track.isPlaying = true;
-
-      this.track.song.play();
-
+    playSong() {
+      if (this.song.howl) {
+        this.song.howl.play();
+        this.song.isPlaying = true;
+      }
+      else {
+        this.startSong();
+      }
     },
-    pauseTrack() {
-      this.track.isPlaying = false;
+    pauseSong() {
+      this.song.howl.pause();
+      this.song.isPlaying = false;
+    },
+    nextSong() {
+      this.song.index++;
 
-      this.track.song.pause();
+      if (this.song.index > this.song.list.length - 1) this.song.index = 0;
+
+      this.startSong();
+    },
+    previousSong() {
+      this.song.index--;
+
+      if (this.song.index < 0) this.song.index = this.song.list.length - 1;
+
+      this.startSong();
     },
   },
 };
