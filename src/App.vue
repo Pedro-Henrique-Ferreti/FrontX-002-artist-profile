@@ -35,10 +35,8 @@ body {
   background-size: clamp(400px, 57vh, 600px);
   background-position-x: center;
   background-position-y: bottom;
-  @media (min-width: $tablet-landscape-up) {
-    background-position-x: right;
-  }
   @media (min-width: $desktop-up) {
+    background-position-x: right;
     background-size: clamp(550px, 75vh, 75vh);
   }
 }
