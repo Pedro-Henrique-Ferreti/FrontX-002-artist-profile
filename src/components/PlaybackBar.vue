@@ -1,13 +1,28 @@
 <template>
   <div class="playback-bar">
-    <PlaybackBarButton @click="handlePlayClick">
+    <PlaybackBarButton
+      :title="song.isPlaying ? 'Pausar' : 'Tocar'"
+      :aria-label="song.isPlaying ? 'Pausar Música' : 'Tocar Música'"
+      @click="handlePlayClick"
+    >
       <component :is="song.isPlaying ? 'IconPause' : 'IconPlay'" />
     </PlaybackBarButton>
-    <div>
-      <PlaybackBarButton @click="previousSong">
+    <div class="playback-bar__controls">
+      <PlaybackBarButton
+        color="gray"
+        title="Música anterior"
+        aria-label="Música Anterior"
+        @click="previousSong"
+      >
         <IconPrevious />
       </PlaybackBarButton>
-      <PlaybackBarButton @click="nextSong">
+      <PlaybackBarWaves :animate="song.isPlaying" />
+      <PlaybackBarButton
+        color="gray"
+        title="Próxima música"
+        aria-label="Próxima Música"
+        @click="nextSong"
+      >
         <IconNext />
       </PlaybackBarButton>
     </div>
@@ -16,6 +31,7 @@
 
 <script>
 import PlaybackBarButton from '@/components/PlaybackBarButton.vue';
+import PlaybackBarWaves from '@/components/PlaybackBarWaves.vue';
 import IconPlay from '@/assets/images/icons/Play.vue';
 import IconPause from '@/assets/images/icons/Pause.vue';
 import IconPrevious from '@/assets/images/icons/Previous.vue';
@@ -27,6 +43,7 @@ export default {
   name: 'PlaybackBar',
   components: {
     PlaybackBarButton,
+    PlaybackBarWaves,
     IconPlay,
     IconPrevious,
     IconPause,
@@ -36,11 +53,11 @@ export default {
     return {
       song: {
         list: [
+          '/audio/Rain-On-Me.mp3',
           '/audio/Santa_s-Sleigh.mp3',
           '/audio/Holiday-Lights.mp3',
           '/audio/Operation-Puffle-Stand-and-Defend.mp3',
           '/audio/Pizza-Parlor-Theme-2012.mp3',
-          '/audio/Rain-On-Me.mp3',
         ],
         index: 0,
         isPlaying: false,
@@ -50,7 +67,7 @@ export default {
     };
   },
   mounted() {
-    // this.startSong();
+    this.startSong();
   },
   methods: {
     startSong() {
@@ -106,10 +123,13 @@ export default {
 
 <style lang="scss" scoped>
 .playback-bar {
-  width: 100%;
   max-width: 550px;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 20px;
+  align-items: center;
+  &__controls {
+    align-items: center;
+  }
 }
 </style>
