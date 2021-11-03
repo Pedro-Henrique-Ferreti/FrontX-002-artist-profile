@@ -16,7 +16,13 @@
       >
         <IconPrevious />
       </PlaybackBarButton>
-      <PlaybackBarWaves :animate="song.isPlaying" />
+      <div class="playback-bar__controls__waves-wrapper">
+        <div class="playback-bar__controls__duration">
+          <span>{{ $fn.formatSecondsToMinutes(currentTime) }}</span>
+          <span>{{ $fn.formatSecondsToMinutes(song.duration) }}</span>
+        </div>
+        <PlaybackBarWaves :animate="song.isPlaying && song.showTrackAnimation" />
+      </div>
       <PlaybackBarButton
         color="gray"
         title="Próxima música"
@@ -61,13 +67,19 @@ export default {
         ],
         index: 0,
         isPlaying: false,
+        showTrackAnimation: true,
         duration: 0,
         howl: null,
       },
     };
   },
+  computed: {
+    currentTime() {
+      return this.song.howl ? this.song.howl.seek() : 0;
+    }
+  },
   mounted() {
-    this.startSong();
+    // this.startSong();
   },
   methods: {
     startSong() {
@@ -80,6 +92,7 @@ export default {
           this.song.howl.play();
           this.song.duration = this.song.howl._duration;
           this.song.isPlaying = true;
+          this.song.showTrackAnimation = true;
 
           Howler.volume(0.2);          
         }
@@ -104,6 +117,7 @@ export default {
       this.song.isPlaying = false;
     },
     nextSong() {
+      this.song.showTrackAnimation = false;
       this.song.index++;
 
       if (this.song.index > this.song.list.length - 1) this.song.index = 0;
@@ -111,6 +125,7 @@ export default {
       this.startSong();
     },
     previousSong() {
+      this.song.showTrackAnimation = false;
       this.song.index--;
 
       if (this.song.index < 0) this.song.index = this.song.list.length - 1;
@@ -130,6 +145,20 @@ export default {
   align-items: center;
   &__controls {
     align-items: center;
+    &__waves-wrapper {
+      position: relative;
+      flex-direction: column;
+      width: 100%;
+    }
+    &__duration {
+      position: absolute;
+      top: -30px;
+      width: 100%;
+      justify-content: space-between;
+      span {
+        color: $white;
+      }
+    }
   }
 }
 </style>
