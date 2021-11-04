@@ -18,7 +18,7 @@
       </PlaybackBarButton>
       <div class="playback-bar__controls__waves-wrapper">
         <div class="playback-bar__controls__duration">
-          <span>{{ $fn.formatSecondsToMinutes(currentTime) }}</span>
+          <span>{{ $fn.formatSecondsToMinutes(song.currentTime) }}</span>
           <span>{{ $fn.formatSecondsToMinutes(song.duration) }}</span>
         </div>
         <PlaybackBarWaves :animate="song.isPlaying && song.showTrackAnimation" />
@@ -69,14 +69,10 @@ export default {
         isPlaying: false,
         showTrackAnimation: true,
         duration: 0,
+        currentTime: 0,
         howl: null,
       },
     };
-  },
-  computed: {
-    currentTime() {
-      return this.song.howl ? this.song.howl.seek() : 0;
-    }
   },
   mounted() {
     // this.startSong();
@@ -94,9 +90,14 @@ export default {
           this.song.isPlaying = true;
           this.song.showTrackAnimation = true;
 
-          Howler.volume(0.2);          
+          Howler.volume(0.2);
+
+          setInterval(() => this.updateSongCurrentTime(), 1000);
         }
       });
+    },
+    updateSongCurrentTime() {
+      this.song.currentTime = this.song.howl ? this.song.howl.seek() : 0;
     },
     handlePlayClick() {
       this.song.isPlaying
