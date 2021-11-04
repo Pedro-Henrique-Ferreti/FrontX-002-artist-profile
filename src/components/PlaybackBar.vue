@@ -17,8 +17,15 @@
         <IconPrevious />
       </PlaybackBarButton>
       <div class="playback-bar__controls__waves-wrapper">
-        <div class="playback-bar__controls__duration">
+        <div class="playback-bar__controls__song-info">
           <span>{{ $fn.formatSecondsToMinutes(song.currentTime) }}</span>
+          <div
+            v-if="song.isPlaying"
+            class="playback-bar__controls__song-info__name"
+            :key="song.index"
+          >
+            <p>Now playing: {{ song.list[song.index].name }}</p>
+          </div>
           <span>{{ $fn.formatSecondsToMinutes(song.duration) }}</span>
         </div>
         <PlaybackBarWaves :animate="song.isPlaying && song.showTrackAnimation" />
@@ -59,11 +66,26 @@ export default {
     return {
       song: {
         list: [
-          '/audio/Rain-On-Me.mp3',
-          '/audio/Santa_s-Sleigh.mp3',
-          '/audio/Holiday-Lights.mp3',
-          '/audio/Operation-Puffle-Stand-and-Defend.mp3',
-          '/audio/Pizza-Parlor-Theme-2012.mp3',
+          {
+            name: 'Rain On Me',
+            url: '/audio/Rain-On-Me.mp3',
+          },
+          {
+            name: "Santa's Sleigh",
+            url: '/audio/Santa_s-Sleigh.mp3',
+          },
+          {
+            name: 'Holiday Lights',
+            url: '/audio/Holiday-Lights.mp3',
+          },
+          {
+            name: 'Operation Puffle Stand and Defend',
+            url: '/audio/Operation-Puffle-Stand-and-Defend.mp3',
+          },
+          {
+            name: 'Pizza Parlor Theme 2012',
+            url: '/audio/Pizza-Parlor-Theme-2012.mp3',
+          },
         ],
         index: 0,
         isPlaying: false,
@@ -82,7 +104,7 @@ export default {
       if (this.song.howl) this.song.howl.stop();
 
       this.song.howl = new Howl({
-        src: [this.song.list[this.song.index]],
+        src: [this.song.list[this.song.index].url],
         onend: this.nextSong,
         onload: () => {
           this.song.howl.play();
@@ -151,7 +173,7 @@ export default {
       flex-direction: column;
       width: 100%;
     }
-    &__duration {
+    &__song-info {
       position: absolute;
       top: -30px;
       width: 100%;
@@ -159,7 +181,24 @@ export default {
       span {
         color: $white;
       }
+      &__name {
+        width: 100%;
+        margin: 0 8px;
+        overflow: hidden;
+        white-space: nowrap;
+        p {
+          color: $white;
+          padding-left: 100%;
+          animation: marquee 15s linear infinite;
+        }
+      }
     }
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translate(-105%, 0);
   }
 }
 </style>
