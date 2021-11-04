@@ -40,6 +40,7 @@ export default {
     svg {
       width: inherit;
       height: inherit;
+      transition: stroke 0.2s ease-in-out;
     }
   }
   &--primary {
@@ -53,6 +54,9 @@ export default {
     :deep() {
       svg {
         stroke: $gray-3;
+        &:hover {
+          stroke: $primary;
+        }
       }
     }
   }
