@@ -20,11 +20,10 @@
         <div class="playback-bar__controls__song-info">
           <span>{{ $fn.formatSecondsToMinutes(song.currentTime) }}</span>
           <div
-            v-if="song.isPlaying"
             class="playback-bar__controls__song-info__name"
             :key="song.index"
           >
-            <p>Now playing: {{ song.list[song.index].name }}</p>
+            <p ref="songName">Now playing: {{ song.list[song.index].name }}</p>
           </div>
           <span>{{ $fn.formatSecondsToMinutes(song.duration) }}</span>
         </div>
@@ -96,8 +95,14 @@ export default {
       },
     };
   },
+  watch: {
+    'song.isPlaying'(isPlaying) {
+      this.$refs.songName.style.animationPlayState = isPlaying ? 'running' : 'paused';
+    },
+  },
   mounted() {
     // this.startSong();
+    this.addSpaceBarPressEvent();
   },
   methods: {
     startSong() {
@@ -107,9 +112,8 @@ export default {
         src: [this.song.list[this.song.index].url],
         onend: this.nextSong,
         onload: () => {
-          this.song.howl.play();
+          this.playSong();
           this.song.duration = this.song.howl._duration;
-          this.song.isPlaying = true;
           this.song.showTrackAnimation = true;
 
           Howler.volume(0.2);
@@ -120,6 +124,11 @@ export default {
     },
     updateSongCurrentTime() {
       this.song.currentTime = this.song.howl ? this.song.howl.seek() : 0;
+    },
+    addSpaceBarPressEvent() {
+      document.addEventListener('keypress', event => {
+        if (event.code === 'Space') this.handlePlayClick();
+      });
     },
     handlePlayClick() {
       this.song.isPlaying
@@ -190,6 +199,7 @@ export default {
           color: $white;
           padding-left: 100%;
           animation: marquee 15s linear infinite;
+          animation-play-state: paused;
         }
       }
     }
