@@ -19,15 +19,16 @@
       <div class="playback-bar__controls__waves-wrapper">
         <div class="playback-bar__controls__song-info">
           <span>{{ $fn.formatSecondsToMinutes(song.currentTime) }}</span>
-          <div
-            class="playback-bar__controls__song-info__name"
+          <div class="playback-bar__controls__song-info__name"
             :key="song.index"
           >
-            <p ref="songName">Now playing: {{ song.list[song.index].name }}</p>
+            <p :style="{ animationPlayState: song.isPlaying ? 'running' : 'paused' }">
+              Now playing: {{ song.list[song.index].name }}
+            </p>
           </div>
           <span>{{ $fn.formatSecondsToMinutes(song.duration) }}</span>
         </div>
-        <PlaybackBarWaves :animate="song.isPlaying && song.showTrackAnimation" />
+        <PlaybackBarWaves :key="song.index" :animate="song.isPlaying" />
       </div>
       <PlaybackBarButton
         color="gray"
@@ -50,6 +51,7 @@ import IconPrevious from '@/assets/images/icons/Previous.vue';
 import IconNext from '@/assets/images/icons/Next.vue';
 
 import { Howl, Howler } from 'howler';
+import { songList } from '@/data';
 
 export default {
   name: 'PlaybackBar',
@@ -64,41 +66,14 @@ export default {
   data() {
     return {
       song: {
-        list: [
-          {
-            name: 'Rain On Me',
-            url: '/audio/Rain-On-Me.mp3',
-          },
-          {
-            name: "Santa's Sleigh",
-            url: '/audio/Santa_s-Sleigh.mp3',
-          },
-          {
-            name: 'Holiday Lights',
-            url: '/audio/Holiday-Lights.mp3',
-          },
-          {
-            name: 'Operation Puffle Stand and Defend',
-            url: '/audio/Operation-Puffle-Stand-and-Defend.mp3',
-          },
-          {
-            name: 'Pizza Parlor Theme 2012',
-            url: '/audio/Pizza-Parlor-Theme-2012.mp3',
-          },
-        ],
+        list: songList,
         index: 0,
         isPlaying: false,
-        showTrackAnimation: true,
         duration: 0,
         currentTime: 0,
         howl: null,
       },
     };
-  },
-  watch: {
-    'song.isPlaying'(isPlaying) {
-      this.$refs.songName.style.animationPlayState = isPlaying ? 'running' : 'paused';
-    },
   },
   mounted() {
     // this.startSong();
@@ -114,7 +89,6 @@ export default {
         onload: () => {
           this.playSong();
           this.song.duration = this.song.howl._duration;
-          this.song.showTrackAnimation = true;
 
           Howler.volume(0.2);
 
@@ -149,7 +123,6 @@ export default {
       this.song.isPlaying = false;
     },
     nextSong() {
-      this.song.showTrackAnimation = false;
       this.song.index++;
 
       if (this.song.index > this.song.list.length - 1) this.song.index = 0;
@@ -157,7 +130,6 @@ export default {
       this.startSong();
     },
     previousSong() {
-      this.song.showTrackAnimation = false;
       this.song.index--;
 
       if (this.song.index < 0) this.song.index = this.song.list.length - 1;
