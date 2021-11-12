@@ -20,10 +20,12 @@ export default {
 
 <style lang="scss" scoped>
 .social-media-icon {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   :deep() {
     svg {
+      width: inherit;
+      height: inherit;
       fill: $gray-1;
       transition: fill 0.3s ease-in-out;
       &:hover, &:active {
