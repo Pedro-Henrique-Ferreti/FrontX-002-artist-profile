@@ -1,5 +1,9 @@
 export const songList = [
   {
+    name: 'Gift Shop Theme 2012',
+    url: '/audio/Gift-Shop-Theme-2012.mp3',
+  },
+  {
     name: 'Rain On Me',
     url: '/audio/Rain-On-Me.mp3',
   },
