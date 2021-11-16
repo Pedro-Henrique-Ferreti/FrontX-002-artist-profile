@@ -83,6 +83,9 @@ export default {
       li:not(:last-child) {
         margin-bottom: 24px;
         height: 12px;
+        @media (min-width: $desktop-up) {
+          margin-bottom: 48px;
+        }
       }
       &__item {
         background-color: $gray-3;
