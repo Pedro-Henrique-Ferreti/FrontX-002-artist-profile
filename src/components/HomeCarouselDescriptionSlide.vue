@@ -16,6 +16,7 @@ export default {
 .description-slide {
   padding-left: 0 !important;
   max-width: 600px !important;
+  margin: 0 !important;
   &__description {
     line-height: 1.2;
     @media (min-width: $desktop-up) {
