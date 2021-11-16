@@ -5,8 +5,8 @@
         <SplideSlide class="carousel__slide">
           <DescriptionSlide />
         </SplideSlide>
-        <SplideSlide v-for="n in 3" :key="n">
-          <img :src="`https://picsum.photos/id/${n * 2}/50/200`" alt="Sample 1" />
+        <SplideSlide>
+          <AlbumList />
         </SplideSlide>
       </Splide>
     </BaseContainer>
@@ -15,6 +15,8 @@
 
 <script>
 import DescriptionSlide from '@/components/HomeCarouselDescriptionSlide.vue';
+import AlbumList from '@/components/AlbumList.vue';
+
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
 
@@ -22,6 +24,7 @@ export default {
   name: 'HomeCarousel',
   components: {
     DescriptionSlide,
+    AlbumList,
     Splide,
     SplideSlide,
   },
