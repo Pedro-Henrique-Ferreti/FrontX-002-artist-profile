@@ -5,7 +5,7 @@
         <SplideSlide class="carousel__slide">
           <DescriptionSlide />
         </SplideSlide>
-        <SplideSlide v-for="n in 2" :key="n">
+        <SplideSlide v-for="n in 3" :key="n">
           <img :src="`https://picsum.photos/id/${n * 2}/50/200`" alt="Sample 1" />
         </SplideSlide>
       </Splide>
@@ -28,8 +28,7 @@ export default {
   data() {
     return {
       carouselOptions: {
-        // autoplay: true,
-        // interval: 8000,
+        autoWidth: true,
         rewind: true,
         direction: 'ttb',
         height: '175px',

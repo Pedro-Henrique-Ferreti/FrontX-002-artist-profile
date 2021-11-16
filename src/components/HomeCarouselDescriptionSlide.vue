@@ -17,7 +17,7 @@ export default {
   padding-left: 0 !important;
   max-width: 600px !important;
   &__description {
-    line-height: normal;
+    line-height: 1.2;
     @media (min-width: $desktop-up) {
       font-size: 28px;
     }
