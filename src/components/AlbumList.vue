@@ -1,15 +1,16 @@
 <template>
   <div class="album-list">
-    <p class="album-list__title">Lorem ipsum</p>
+    <p class="album-list__title">{{ title }}</p>
     <ul class="album-list__items-wrapper">
-      <li class="album-list__item" v-for="n in 5" :key="n">
+      <li class="album-list__item" v-for="item in list" :key="item.id">
         <img
           class="album-list__item__picture"
-          :src="require('@/assets/images/albums/Dangerous-Woman.png')" alt="album" />
+          :src="require(`@/assets/images/albums/${item.image}`)" alt="album" />
         <div class="album-list__item__info-wrapper">
-          <span class="album-list__item__name">Positions</span>
-          <span class="album-list__item__released-year">2019</span>
-          <span class="album-list__item__explict-icon">E</span>
+          <span class="album-list__item__name">{{ item.name }}</span>
+          <span class="album-list__item__released-year">{{ item.releaseYear }}</span>
+          <span v-if="item.hasExplictContent"
+          class="album-list__item__explict-icon">E</span>
         </div>
       </li>
     </ul>
@@ -19,6 +20,16 @@
 <script>
 export default {
   name: 'AlbumList',
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    list: {
+      type: Array,
+      required: true,
+    },
+  },
 };
 </script>
 

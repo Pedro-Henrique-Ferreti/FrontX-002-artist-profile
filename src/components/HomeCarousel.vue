@@ -6,7 +6,13 @@
           <DescriptionSlide />
         </SplideSlide>
         <SplideSlide>
-          <AlbumList />
+          <AlbumList title="Músicas em Destaque" :list="featuredSongs" />
+        </SplideSlide>
+        <SplideSlide>
+          <AlbumList title="Programas" :list="tvShows" />
+        </SplideSlide>
+        <SplideSlide>
+          <AlbumList title="Álbuns" :list="albums" />
         </SplideSlide>
       </Splide>
     </BaseContainer>
@@ -16,8 +22,9 @@
 <script>
 import DescriptionSlide from '@/components/HomeCarouselDescriptionSlide.vue';
 import AlbumList from '@/components/AlbumList.vue';
-
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
+
+import { FEATURED_SONGS, TV_SHOWS, ALBUMS } from '@/data';
 import '@splidejs/splide/dist/css/splide.min.css';
 
 export default {
@@ -30,6 +37,9 @@ export default {
   },
   data() {
     return {
+      featuredSongs: FEATURED_SONGS,
+      tvShows: TV_SHOWS,
+      albums: ALBUMS,
       carouselOptions: {
         autoWidth: true,
         rewind: true,
