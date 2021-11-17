@@ -21,12 +21,10 @@ export default {
 <style lang="scss" scoped>
 .footer {
   &__wrapper {
-    position: relative;
     justify-content: center;
     margin-top: auto;
   }
-  position: absolute;
-  bottom: 50px;
+  margin-bottom: 50px;
   flex-direction: row !important;
   align-items: flex-end;
   justify-content: center;

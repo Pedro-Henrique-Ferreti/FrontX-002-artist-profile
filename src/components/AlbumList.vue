@@ -38,13 +38,16 @@ export default {
   flex-direction: column;
   &__title {
     font-weight: $font-bold;
-    font-size: 22px;
+    font-size: 16px;
     margin-bottom: 18px;
     @include font-Cairo;
+    @media (min-width: $tablet-landscape-up) {
+      font-size: 22px;
+    }
   }
   &__items-wrapper {
     gap: 8px;
-    @media (min-width: $desktop-up) {
+    @media (min-width: $tablet-landscape-up) {
       display: grid;
       grid-template-columns: repeat(4, 200px);
       gap: 18px 8px;
