@@ -44,7 +44,7 @@ export default {
         autoWidth: true,
         rewind: true,
         direction: 'ttb',
-        height: '175px',
+        height: '240px',
         classes: {
           arrows: 'carousel__arrows',
           pagination: 'carousel__pagination',
