@@ -94,7 +94,7 @@ export default {
         margin-bottom: 24px;
         height: 12px;
         @media (min-width: $desktop-up) {
-          margin-bottom: 48px;
+          margin-bottom: 36px;
         }
       }
       &__item {
