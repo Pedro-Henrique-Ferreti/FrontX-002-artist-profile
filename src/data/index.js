@@ -1,4 +1,4 @@
-export const songList = [
+export const SONG_LIST = [
   {
     name: 'Gift Shop Theme 2012',
     url: '/audio/Gift-Shop-Theme-2012.mp3',

@@ -51,7 +51,7 @@ import IconPrevious from '@/assets/images/icons/Previous.vue';
 import IconNext from '@/assets/images/icons/Next.vue';
 
 import { Howl, Howler } from 'howler';
-import { songList } from '@/data';
+import { SONG_LIST } from '@/data';
 
 export default {
   name: 'PlaybackBar',
@@ -66,7 +66,7 @@ export default {
   data() {
     return {
       song: {
-        list: songList,
+        list: SONG_LIST,
         index: 0,
         isPlaying: false,
         duration: 0,
