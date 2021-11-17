@@ -2,7 +2,7 @@
   <div class="carousel">
     <BaseContainer class="carousel__container">
       <Splide class="carousel__splide" :options="carouselOptions">
-        <SplideSlide class="carousel__slide">
+        <SplideSlide>
           <DescriptionSlide />
         </SplideSlide>
         <SplideSlide>
@@ -58,7 +58,7 @@ export default {
 
 <style lang="scss" scoped>
 .carousel {
-  margin-top: 8vh;
+  margin-top: 10%;
   @media (min-width: $desktop-up) {
     margin-top: 20vh;
     @media (max-height: 700px) {
@@ -73,9 +73,6 @@ export default {
   }
   &__splide {
     width: fit-content;
-  }
-  &__slide {
-    width: 100%;
   }
   ::v-deep() {
     .splide__track {
@@ -109,6 +106,14 @@ export default {
           height: 24px;
           border-radius: 8px;
         }
+      }
+    }
+    .splide__slide {
+      width: 100%;
+      max-width: calc(100vw - 64px);
+      overflow-x: auto;
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
       }
     }
   }
