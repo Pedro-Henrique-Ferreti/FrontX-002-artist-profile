@@ -34,6 +34,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$album-list-item-width: 205px;
 .album-list {
   flex-direction: column;
   &__title {
@@ -49,12 +50,15 @@ export default {
     gap: 8px;
     @media (min-width: $tablet-landscape-up) {
       display: grid;
-      grid-template-columns: repeat(4, 200px);
+      grid-template-columns: repeat(4, $album-list-item-width);
       gap: 18px 8px;
     }
   }
   &__item {
     align-items: center;
+    @media (max-width: $tablet-landscape-up) {
+      min-width: $album-list-item-width;
+    }
     &__picture {
       width: 80px;
       height: 80px;
